@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LBEnglishCo — Final Exam Companion</title>
+<style>
+/* ============================================================
+   DESIGN TOKENS
+   Palette: warm paper, deep ink-teal, terracotta accent (book echo)
+   Type: Fraunces (display) · Inter (body) · Space Mono (labels/data)
+============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+:root{
+  --paper:#f5f0e6;
+  --paper-2:#ece4d3;
+  --card:#fffdf8;
+  --ink:#1c2b2d;
+  --ink-soft:#3f5356;
+  --terra:#c8552b;
+  --terra-deep:#a23f1d;
+  --gold:#d99a2b;
+  --line:#d9cfba;
+  --line-soft:#e6ddca;
+  --good:#2f7d52;
+  --shadow:0 1px 2px rgba(28,43,45,.06),0 8px 24px rgba(28,43,45,.06);
+  --shadow-lg:0 4px 12px rgba(28,43,45,.08),0 20px 50px rgba(28,43,45,.12);
+  --r:14px;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(rgba(28,43,45,.025) 1px,transparent 1px);
+  background-size:22px 22px;
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+
+/* ---------- LAYOUT ---------- */
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+
+/* ---------- HEADER / HERO ---------- */
+header.hero{
+  position:relative;
+  padding:54px 0 30px;
+  border-bottom:2px solid var(--ink);
+  overflow:hidden;
+}
+.hero .eyebrow{
+  font-family:'Space Mono',monospace;
+  font-size:.72rem;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:var(--terra-deep);
+  margin-bottom:14px;
+}
+.hero h1{
+  font-family:'Fraunces',serif;
+  font-weight:900;
+  font-size:clamp(2.4rem,6vw,4.4rem);
+  line-height:.95;
+  letter-spacing:-.02em;
+  color:var(--ink);
+}
+.hero h1 em{font-style:italic;color:var(--terra)}
+.hero .lede{
+  margin-top:18px;
+  max-width:54ch;
+  font-size:1.05rem;
+  color:var(--ink-soft);
+}
+.hero .meta{
+  margin-top:22px;
+  display:flex;flex-wrap:wrap;gap:10px;
+}
+.chip{
+  font-family:'Space Mono',monospace;
+  font-size:.72rem;
+  letter-spacing:.04em;
+  background:var(--paper-2);
+  border:1px solid var(--line);
+  padding:6px 12px;border-radius:100px;
+  color:var(--ink-soft);
+}
+.chip b{color:var(--ink)}
+
+/* ---------- HOW TO USE ---------- */
+.howto{
+  margin-top:26px;
+  background:var(--ink);
+  color:var(--paper);
+  border-radius:var(--r);
+  padding:20px 24px;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
+}
+.howto .h{
+  font-family:'Space Mono',monospace;
+  font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:6px;
+}
+.howto p{font-size:.9rem;color:#e9e2d2;line-height:1.5}
+.howto strong{color:#fff}
+
+/* ---------- STICKY NAV ---------- */
+nav.units{
+  position:sticky;top:0;z-index:40;
+  background:rgba(245,240,230,.86);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+  padding:10px 0;
+  margin-top:6px;
+}
+nav.units .scroller{
+  display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;
+  scrollbar-width:thin;
+}
+nav.units .scroller::-webkit-scrollbar{height:4px}
+nav.units .scroller::-webkit-scrollbar-thumb{background:var(--line);border-radius:4px}
+.navbtn{
+  flex:0 0 auto;
+  font-family:'Space Mono',monospace;
+  font-size:.74rem;
+  border:1px solid var(--line);
+  background:var(--card);
+  color:var(--ink-soft);
+  padding:7px 13px;border-radius:100px;
+  cursor:pointer;white-space:nowrap;
+  transition:all .15s ease;
+}
+.navbtn:hover{border-color:var(--terra);color:var(--terra-deep)}
+.navbtn.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* ---------- TOOLBAR ---------- */
+.toolbar{
+  display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+  margin:26px 0 6px;
+}
+.search{
+  flex:1;min-width:220px;position:relative;
+}
+.search input{
+  width:100%;
+  font-family:'Inter',sans-serif;font-size:.95rem;
+  padding:11px 14px 11px 40px;
+  border:1px solid var(--line);border-radius:100px;
+  background:var(--card);color:var(--ink);
+}
+.search input:focus{outline:2px solid var(--terra);outline-offset:1px;border-color:transparent}
+.search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);opacity:.5}
+.tgl{
+  font-family:'Space Mono',monospace;font-size:.74rem;
+  border:1px solid var(--line);background:var(--card);
+  color:var(--ink-soft);padding:10px 14px;border-radius:100px;cursor:pointer;
+  transition:all .15s;
+}
+.tgl:hover{border-color:var(--terra)}
+.tgl.on{background:var(--terra);color:#fff;border-color:var(--terra)}
+
+/* ---------- UNIT SECTION ---------- */
+.unit{padding:34px 0;border-top:1px solid var(--line-soft)}
+.unit:first-of-type{border-top:none}
+.unit-head{display:flex;align-items:flex-start;gap:18px;margin-bottom:22px}
+.unit-num{
+  flex:0 0 auto;
+  width:62px;height:62px;border-radius:16px;
+  background:var(--ink);color:var(--paper);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Fraunces',serif;font-weight:900;font-size:1.7rem;
+  position:relative;
+}
+.unit-num.welcome{background:var(--terra)}
+.unit-head .ht{flex:1;min-width:0}
+.unit-code{
+  font-family:'Space Mono',monospace;font-size:.7rem;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--terra-deep);
+}
+.unit-head h2{
+  font-family:'Fraunces',serif;font-weight:700;
+  font-size:clamp(1.5rem,3.4vw,2.1rem);line-height:1.05;
+  letter-spacing:-.01em;margin:2px 0 6px;
+}
+.unit-grammar{
+  font-size:.86rem;color:var(--ink-soft);
+  display:flex;align-items:center;gap:7px;
+}
+.unit-grammar .tag{
+  font-family:'Space Mono',monospace;font-size:.62rem;
+  background:var(--paper-2);border:1px solid var(--line);
+  padding:2px 7px;border-radius:5px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink-soft);flex:0 0 auto;
+}
+
+/* ---------- RING ---------- */
+.ring{flex:0 0 auto;width:54px;height:54px;position:relative}
+.ring svg{transform:rotate(-90deg)}
+.ring .pct{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:'Space Mono',monospace;font-size:.66rem;font-weight:700;color:var(--ink);
+}
+
+/* ---------- PANEL GRID ---------- */
+.panels{display:grid;grid-template-columns:1.15fr 1fr;gap:22px}
+@media(max-width:860px){.panels{grid-template-columns:1fr}}
+
+.panel{
+  background:var(--card);border:1px solid var(--line);
+  border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;
+}
+.panel-h{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 18px;border-bottom:1px solid var(--line-soft);
+  background:linear-gradient(var(--card),var(--paper));
+}
+.panel-h .pt{
+  font-family:'Space Mono',monospace;font-size:.74rem;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--ink);
+  display:flex;align-items:center;gap:8px;
+}
+.panel-h .pt .dot{width:8px;height:8px;border-radius:50%;background:var(--terra)}
+.panel-h .pt.vocab .dot{background:var(--gold)}
+.count{font-family:'Space Mono',monospace;font-size:.7rem;color:var(--ink-soft)}
+
+/* ---------- VOCAB ---------- */
+.vlist{max-height:520px;overflow-y:auto}
+.vlist::-webkit-scrollbar{width:8px}
+.vlist::-webkit-scrollbar-thumb{background:var(--line);border-radius:8px}
+.vrow{
+  display:grid;grid-template-columns:1fr auto;gap:8px 14px;
+  padding:11px 18px;border-bottom:1px solid var(--line-soft);
+  cursor:pointer;transition:background .12s;align-items:baseline;
+}
+.vrow:last-child{border-bottom:none}
+.vrow:hover{background:var(--paper)}
+.vrow.known{background:rgba(47,125,82,.06)}
+.ven{font-weight:600;font-size:.98rem;color:var(--ink)}
+.vex{
+  grid-column:1/-1;font-size:.82rem;color:var(--ink-soft);
+  font-style:italic;display:none;
+}
+.vrow.reveal .vex{display:block}
+.vtr{
+  font-size:.9rem;color:var(--terra-deep);font-weight:500;text-align:right;
+  font-family:'Inter',sans-serif;
+  filter:blur(5px);transition:filter .2s;user-select:none;white-space:nowrap;
+}
+.vrow.reveal .vtr{filter:none;user-select:auto}
+.vmark{
+  grid-column:2;justify-self:end;
+  width:20px;height:20px;border:1.5px solid var(--line);border-radius:6px;
+  display:none;align-items:center;justify-content:center;
+  font-size:.7rem;color:#fff;background:transparent;flex:0 0 auto;
+}
+.vrow.reveal .vmark{display:flex}
+.vrow.known .vmark{background:var(--good);border-color:var(--good)}
+
+/* ---------- SPEAKING ---------- */
+.speak-body{padding:6px 0 10px}
+.stier{padding:14px 18px;border-bottom:1px solid var(--line-soft)}
+.stier:last-child{border-bottom:none}
+.stier-h{
+  font-family:'Space Mono',monospace;font-size:.68rem;
+  letter-spacing:.14em;text-transform:uppercase;
+  display:flex;align-items:center;gap:8px;margin-bottom:10px;color:var(--ink);
+}
+.lvl{
+  font-size:.58rem;padding:2px 7px;border-radius:5px;color:#fff;letter-spacing:.06em;
+}
+.lvl.warm{background:var(--gold)}
+.lvl.pair{background:var(--terra)}
+.lvl.exam{background:var(--ink)}
+.qlist{list-style:none;display:flex;flex-direction:column;gap:8px}
+.qlist li{
+  display:flex;gap:10px;font-size:.92rem;color:var(--ink-soft);line-height:1.45;
+}
+.qlist li::before{
+  content:"›";color:var(--terra);font-weight:700;flex:0 0 auto;
+}
+.qlist li b{color:var(--ink);font-weight:600}
+
+/* ---------- FOOTER ---------- */
+footer{
+  margin-top:40px;border-top:2px solid var(--ink);
+  padding:30px 0 50px;
+}
+.foot-grid{display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px;align-items:center}
+.foot-grid .brand{
+  font-family:'Fraunces',serif;font-weight:700;font-size:1.2rem;color:var(--ink);
+}
+.foot-grid .brand span{color:var(--terra)}
+.foot-grid p{font-size:.82rem;color:var(--ink-soft);max-width:46ch}
+.reset{
+  font-family:'Space Mono',monospace;font-size:.72rem;
+  background:transparent;border:1px solid var(--line);color:var(--ink-soft);
+  padding:8px 14px;border-radius:100px;cursor:pointer;
+}
+.reset:hover{border-color:var(--terra-deep);color:var(--terra-deep)}
+
+/* ---------- PRINT ---------- */
+@media print{
+  body{background:#fff;background-image:none}
+  nav.units,.toolbar,.howto,.ring,.vmark,.reset{display:none!important}
+  .vtr{filter:none!important}
+  .vex{display:block!important}
+  .panel{break-inside:avoid;box-shadow:none}
+  .unit{break-inside:avoid}
+}
+
+/* hidden when filtered out */
+.hide{display:none!important}
+.no-results{
+  padding:30px;text-align:center;color:var(--ink-soft);
+  font-family:'Space Mono',monospace;font-size:.85rem;
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">LBEnglishCo · Denizli — Final Exam Prep</div>
+    <h1>Speaking &amp; Vocabulary<br><em>Companion</em></h1>
+    <p class="lede">Everything you need to revise for the speaking and vocabulary parts of your final exam — all ten units, with English–Turkish word lists and graded speaking questions. Study smart, speak with confidence.</p>
+    <div class="meta">
+      <span class="chip">Level <b>A2</b></span>
+      <span class="chip">Units <b>0–10</b></span>
+      <span class="chip"><b id="totWords">—</b> words</span>
+      <span class="chip"><b id="totQs">—</b> speaking prompts</span>
+      <span class="chip">🇬🇧 EN · 🇹🇷 TR</span>
+    </div>
+
+    <div class="howto">
+      <div>
+        <div class="h">1 · Vocabulary</div>
+        <p>Tap any word to <strong>reveal its Turkish meaning</strong> and an example. Tap the box to mark words you <strong>already know</strong>. The ring tracks your progress.</p>
+      </div>
+      <div>
+        <div class="h">2 · Speaking</div>
+        <p>Practise out loud. Start with <strong>warm-up</strong> questions, move to <strong>pair work</strong>, then try the <strong>exam-style</strong> tasks — these match the real test.</p>
+      </div>
+      <div>
+        <div class="h">3 · Revise</div>
+        <p>Use the <strong>search box</strong> to find any word fast, switch on <strong>Test mode</strong> to hide all answers, and <strong>print</strong> the page for offline study.</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="units">
+  <div class="wrap">
+    <div class="scroller" id="navScroller"></div>
+  </div>
+</nav>
+
+<main class="wrap">
+  <div class="toolbar">
+    <div class="search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" id="searchInput" placeholder="Search a word in English or Turkish…" autocomplete="off">
+    </div>
+    <button class="tgl" id="testMode">◐ Test mode</button>
+    <button class="tgl" id="revealAll">Reveal all</button>
+    <button class="tgl" id="printBtn">⎙ Print</button>
+  </div>
+
+  <div id="content"></div>
+  <div class="no-results hide" id="noResults">No words match “<span id="nrTerm"></span>”. Try another search.</div>
+</main>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div>
+      <div class="brand">LB<span>English</span>Co</div>
+      <p>Built for our students preparing for the final exam. Speaking-first, grounded in real practice. İyi çalışmalar! 🍀</p>
+    </div>
+    <button class="reset" id="resetProgress">Reset my progress</button>
+  </div>
+</footer>
+
+<script>
+// ============================================================
+//  LBEnglishCo — Final Exam Speaking & Vocabulary Companion
+//  A2 coursebook companion · Units 0–10
+//  Data file: all speaking prompts + vocabulary (EN + TR)
+// ============================================================
+
+const COURSE = {
+  title: "Final Exam Companion",
+  subtitle: "Speaking &amp; Vocabulary · A2",
+  units: [
+
+  // ---------- WELCOME ----------
+  {
+    id: "0",
+    code: "0A–0B",
+    name: "Welcome",
+    grammar: "Subject pronouns · to be · plural nouns · articles · this/that/these/those",
+    color: "#c2410c",
+    vocab: [
+      { en: "country", tr: "ülke", ex: "Turkey is a beautiful country." },
+      { en: "nationality", tr: "milliyet / uyruk", ex: "What's your nationality?" },
+      { en: "Turkish", tr: "Türk / Türkçe", ex: "She is Turkish." },
+      { en: "British", tr: "İngiliz", ex: "He is British." },
+      { en: "American", tr: "Amerikalı", ex: "They are American." },
+      { en: "spell", tr: "hecelemek / harf harf söylemek", ex: "Can you spell your name?" },
+      { en: "introduce", tr: "tanıştırmak", ex: "Let me introduce my friend." },
+      { en: "possession", tr: "eşya / sahip olunan şey", ex: "These are my possessions." },
+      { en: "wallet", tr: "cüzdan", ex: "My wallet is in my bag." },
+      { en: "key", tr: "anahtar", ex: "Where are my keys?" },
+      { en: "watch", tr: "kol saati", ex: "This watch is expensive." },
+      { en: "expensive", tr: "pahalı", ex: "A new phone is expensive." },
+      { en: "cheap", tr: "ucuz", ex: "This pen is cheap." },
+      { en: "new", tr: "yeni", ex: "I have a new laptop." },
+      { en: "old", tr: "eski", ex: "My bike is old." },
+      { en: "big", tr: "büyük", ex: "That is a big house." },
+      { en: "small", tr: "küçük", ex: "I live in a small flat." }
+    ],
+    speaking: {
+      warmup: [
+        "What's your name and how do you spell it?",
+        "Where are you from? What's your nationality?",
+        "What three things do you always have in your bag?"
+      ],
+      pair: [
+        "Introduce yourself: name, age, town, and one thing you like.",
+        "Describe an object near you using this/that and an adjective.",
+        "Ask your partner for their phone number and email, then spell a word back to them."
+      ],
+      exam: [
+        "Tell me about yourself in five sentences.",
+        "Describe three of your personal possessions and say why they are important to you.",
+        "Greet a new classmate and ask three questions to get to know them."
+      ]
+    }
+  },
+
+  // ---------- UNIT 1 ----------
+  {
+    id: "1",
+    code: "Unit 01",
+    name: "The things we do",
+    grammar: "Present Simple (affirmative, negative, questions) · adverbs of frequency",
+    color: "#0f172a",
+    vocab: [
+      { en: "wake up", tr: "uyanmak", ex: "I wake up at seven o'clock." },
+      { en: "get up", tr: "yataktan kalkmak", ex: "She gets up early." },
+      { en: "have breakfast", tr: "kahvaltı yapmak", ex: "We have breakfast together." },
+      { en: "brush my teeth", tr: "dişlerimi fırçalamak", ex: "I brush my teeth twice a day." },
+      { en: "take a shower", tr: "duş almak", ex: "He takes a shower in the morning." },
+      { en: "get dressed", tr: "giyinmek", ex: "I get dressed quickly." },
+      { en: "go to school", tr: "okula gitmek", ex: "They go to school by bus." },
+      { en: "do homework", tr: "ödev yapmak", ex: "I do my homework after dinner." },
+      { en: "go to bed", tr: "yatmaya gitmek", ex: "She goes to bed at eleven." },
+      { en: "free time", tr: "boş zaman", ex: "What do you do in your free time?" },
+      { en: "hang out with friends", tr: "arkadaşlarla takılmak", ex: "I hang out with friends on weekends." },
+      { en: "play video games", tr: "video oyunu oynamak", ex: "He plays video games every night." },
+      { en: "listen to music", tr: "müzik dinlemek", ex: "I listen to music while studying." },
+      { en: "watch series", tr: "dizi izlemek", ex: "We watch series on Netflix." },
+      { en: "go shopping", tr: "alışverişe gitmek", ex: "They go shopping on Saturdays." },
+      { en: "always", tr: "her zaman", ex: "I always eat breakfast." },
+      { en: "usually", tr: "genellikle", ex: "She usually walks to work." },
+      { en: "often", tr: "sık sık", ex: "We often play football." },
+      { en: "sometimes", tr: "bazen", ex: "He sometimes reads at night." },
+      { en: "never", tr: "asla / hiç", ex: "I never drink coffee." },
+      { en: "once a week", tr: "haftada bir kez", ex: "I go swimming once a week." },
+      { en: "twice a week", tr: "haftada iki kez", ex: "She studies English twice a week." },
+      { en: "every day", tr: "her gün", ex: "They train every day." },
+      { en: "wake up (phrasal)", tr: "uyanmak", ex: "Wake up — it's late!" },
+      { en: "turn on", tr: "açmak (cihaz)", ex: "Turn on the TV, please." },
+      { en: "turn off", tr: "kapatmak (cihaz)", ex: "Turn off your phone in class." },
+      { en: "look after", tr: "ile ilgilenmek / bakmak", ex: "I look after my little brother." },
+      { en: "depend on", tr: "bağlı olmak", ex: "It depends on the weather." },
+      { en: "wait for", tr: "beklemek", ex: "I wait for the bus every morning." },
+      { en: "listen to", tr: "dinlemek", ex: "Listen to the teacher." }
+    ],
+    speaking: {
+      warmup: [
+        "What time do you usually wake up on school days?",
+        "What's the first thing you do in the morning?",
+        "How often do you check your phone?"
+      ],
+      pair: [
+        "Describe your typical school-day routine from morning to night.",
+        "Ask your partner three questions about their free-time activities.",
+        "Compare your weekends: what do you both always, sometimes, and never do?"
+      ],
+      exam: [
+        "Describe a normal day in your life using at least five adverbs of frequency.",
+        "Talk about your three favourite free-time activities and how often you do them.",
+        "Interview a classmate about their daily habits and report two facts to the class."
+      ]
+    }
+  },
+
+  // ---------- UNIT 2 ----------
+  {
+    id: "2",
+    code: "Unit 02",
+    name: "No place like home",
+    grammar: "there is / there are (some, any) · prepositions of place · can / can't",
+    color: "#0f172a",
+    vocab: [
+      { en: "house", tr: "ev (müstakil)", ex: "They live in a big house." },
+      { en: "flat / apartment", tr: "daire", ex: "I live in a small flat." },
+      { en: "living room", tr: "oturma odası", ex: "We watch TV in the living room." },
+      { en: "bedroom", tr: "yatak odası", ex: "My bedroom is upstairs." },
+      { en: "kitchen", tr: "mutfak", ex: "She is cooking in the kitchen." },
+      { en: "bathroom", tr: "banyo", ex: "The bathroom is next to my room." },
+      { en: "garden", tr: "bahçe", ex: "There are flowers in the garden." },
+      { en: "garage", tr: "garaj", ex: "The car is in the garage." },
+      { en: "sofa", tr: "kanepe", ex: "Sit on the sofa." },
+      { en: "armchair", tr: "koltuk", ex: "Grandpa sleeps in the armchair." },
+      { en: "wardrobe", tr: "gardırop / dolap", ex: "My clothes are in the wardrobe." },
+      { en: "shelf", tr: "raf", ex: "The books are on the shelf." },
+      { en: "fridge", tr: "buzdolabı", ex: "Put the milk in the fridge." },
+      { en: "mirror", tr: "ayna", ex: "There is a mirror on the wall." },
+      { en: "do the washing-up", tr: "bulaşık yıkamak", ex: "I do the washing-up after dinner." },
+      { en: "make the bed", tr: "yatağı toplamak", ex: "Make your bed every morning." },
+      { en: "tidy my room", tr: "odamı toplamak", ex: "I tidy my room on Sundays." },
+      { en: "take out the rubbish", tr: "çöpü çıkarmak", ex: "He takes out the rubbish at night." },
+      { en: "do the laundry", tr: "çamaşır yıkamak", ex: "My mum does the laundry on Mondays." },
+      { en: "vacuum / hoover", tr: "elektrik süpürgesiyle süpürmek", ex: "I vacuum the carpet weekly." },
+      { en: "in", tr: "içinde", ex: "The keys are in the drawer." },
+      { en: "on", tr: "üstünde", ex: "The lamp is on the table." },
+      { en: "under", tr: "altında", ex: "The cat is under the bed." },
+      { en: "next to", tr: "yanında", ex: "The chair is next to the desk." },
+      { en: "between", tr: "arasında", ex: "The shop is between the bank and the café." },
+      { en: "behind", tr: "arkasında", ex: "The garden is behind the house." },
+      { en: "in front of", tr: "önünde", ex: "A car is in front of the door." },
+      { en: "opposite", tr: "karşısında", ex: "The school is opposite the park." },
+      { en: "comfortable", tr: "rahat", ex: "This is a comfortable bed." },
+      { en: "modern", tr: "modern", ex: "They have a modern kitchen." }
+    ],
+    speaking: {
+      warmup: [
+        "How many rooms are there in your home?",
+        "What is your favourite room and why?",
+        "What can you see from your bedroom window?"
+      ],
+      pair: [
+        "Describe your living room using there is / there are and prepositions of place.",
+        "Tell your partner three household chores you can and can't do well.",
+        "Play 'guess the object': describe where something is in the room until your partner names it."
+      ],
+      exam: [
+        "Describe your home: rooms, furniture, and where things are.",
+        "Talk about household chores in your family — who does what and how often?",
+        "Describe your dream room. What is there in it and where is everything?"
+      ]
+    }
+  },
+
+  // ---------- UNIT 3 ----------
+  {
+    id: "3",
+    code: "Unit 03",
+    name: "Eat in – eat out",
+    grammar: "countable/uncountable nouns (some, any, no) · quantifiers (too many, too much, a few, a little)",
+    color: "#0f172a",
+    vocab: [
+      { en: "bread", tr: "ekmek", ex: "There is some bread on the table." },
+      { en: "rice", tr: "pirinç / pilav", ex: "We don't have any rice." },
+      { en: "meat", tr: "et", ex: "He doesn't eat meat." },
+      { en: "chicken", tr: "tavuk", ex: "I'd like some chicken, please." },
+      { en: "fish", tr: "balık", ex: "Fish is healthy." },
+      { en: "vegetables", tr: "sebzeler", ex: "Eat your vegetables!" },
+      { en: "fruit", tr: "meyve", ex: "There is a lot of fruit in the bowl." },
+      { en: "cheese", tr: "peynir", ex: "I love cheese." },
+      { en: "milk", tr: "süt", ex: "There isn't any milk." },
+      { en: "water", tr: "su", ex: "Drink plenty of water." },
+      { en: "juice", tr: "meyve suyu", ex: "Can I have some orange juice?" },
+      { en: "sugar", tr: "şeker", ex: "Don't put too much sugar in it." },
+      { en: "salt", tr: "tuz", ex: "There is too much salt in the soup." },
+      { en: "a bottle of", tr: "bir şişe", ex: "a bottle of water" },
+      { en: "a glass of", tr: "bir bardak", ex: "a glass of milk" },
+      { en: "a cup of", tr: "bir fincan", ex: "a cup of tea" },
+      { en: "a packet of", tr: "bir paket", ex: "a packet of biscuits" },
+      { en: "a can of", tr: "bir kutu (teneke)", ex: "a can of cola" },
+      { en: "a jar of", tr: "bir kavanoz", ex: "a jar of honey" },
+      { en: "a piece of", tr: "bir dilim / parça", ex: "a piece of cake" },
+      { en: "waiter / waitress", tr: "garson", ex: "The waiter is very friendly." },
+      { en: "chef / cook", tr: "aşçı", ex: "The chef makes great pasta." },
+      { en: "menu", tr: "menü", ex: "Can I see the menu?" },
+      { en: "bill", tr: "hesap", ex: "Can we have the bill, please?" },
+      { en: "plate", tr: "tabak", ex: "Put the food on the plate." },
+      { en: "fork", tr: "çatal", ex: "I need a fork." },
+      { en: "knife", tr: "bıçak", ex: "Use a knife to cut it." },
+      { en: "spoon", tr: "kaşık", ex: "Eat soup with a spoon." },
+      { en: "too much", tr: "çok fazla (sayılamayan)", ex: "There's too much sugar." },
+      { en: "too many", tr: "çok fazla (sayılabilen)", ex: "There are too many people." },
+      { en: "a few", tr: "birkaç (sayılabilen)", ex: "I have a few apples." },
+      { en: "a little", tr: "biraz (sayılamayan)", ex: "Add a little salt." }
+    ],
+    speaking: {
+      warmup: [
+        "What did you have for breakfast today?",
+        "Do you prefer eating at home or eating out? Why?",
+        "What's your favourite meal?"
+      ],
+      pair: [
+        "Order a meal in a restaurant — one student is the waiter, one is the customer.",
+        "Look in your imaginary fridge: say what there is and what there isn't using some/any.",
+        "Plan a healthy meal together using quantifiers (a little, a few, not too much)."
+      ],
+      exam: [
+        "Describe your eating habits — what do you usually eat and drink in a day?",
+        "Role-play ordering food at a café, including asking for the bill.",
+        "Talk about a typical dish from Turkey: ingredients and how people eat it."
+      ]
+    }
+  },
+
+  // ---------- UNIT 4 ----------
+  {
+    id: "4",
+    code: "Unit 04",
+    name: "School life",
+    grammar: "Present Continuous · Present Simple vs Present Continuous",
+    color: "#0f172a",
+    vocab: [
+      { en: "classroom", tr: "sınıf (oda)", ex: "Our classroom is big." },
+      { en: "library", tr: "kütüphane", ex: "I study in the library." },
+      { en: "gym", tr: "spor salonu", ex: "We have PE in the gym." },
+      { en: "playground", tr: "oyun bahçesi / avlu", ex: "Students play in the playground." },
+      { en: "canteen", tr: "kantin / yemekhane", ex: "We eat lunch in the canteen." },
+      { en: "laboratory / lab", tr: "laboratuvar", ex: "The science lab is upstairs." },
+      { en: "maths", tr: "matematik", ex: "Maths is my favourite subject." },
+      { en: "science", tr: "fen bilimleri", ex: "We have science on Tuesdays." },
+      { en: "history", tr: "tarih", ex: "I find history interesting." },
+      { en: "geography", tr: "coğrafya", ex: "We study maps in geography." },
+      { en: "art", tr: "resim / sanat", ex: "Art class is fun." },
+      { en: "PE (physical education)", tr: "beden eğitimi", ex: "We play football in PE." },
+      { en: "ruler", tr: "cetvel", ex: "Draw a line with a ruler." },
+      { en: "rubber / eraser", tr: "silgi", ex: "Can I borrow your rubber?" },
+      { en: "pencil case", tr: "kalem kutusu", ex: "My pencil case is full." },
+      { en: "notebook", tr: "defter", ex: "Write it in your notebook." },
+      { en: "textbook", tr: "ders kitabı", ex: "Open your textbook on page 50." },
+      { en: "backpack", tr: "sırt çantası", ex: "My backpack is heavy." },
+      { en: "study", tr: "ders çalışmak", ex: "She is studying for the exam." },
+      { en: "take notes", tr: "not almak", ex: "I take notes in class." },
+      { en: "pass an exam", tr: "sınavı geçmek", ex: "He wants to pass the exam." },
+      { en: "fail an exam", tr: "sınavda kalmak", ex: "Don't worry, you won't fail." },
+      { en: "get good marks", tr: "iyi not almak", ex: "She gets good marks in English." },
+      { en: "do a project", tr: "proje yapmak", ex: "We are doing a project on space." },
+      { en: "revise", tr: "tekrar yapmak", ex: "I revise before every test." },
+      { en: "concentrate", tr: "konsantre olmak", ex: "Please concentrate on your work." },
+      { en: "clever / smart", tr: "akıllı / zeki", ex: "She is a clever student." },
+      { en: "hard-working", tr: "çalışkan", ex: "He is very hard-working." },
+      { en: "lazy", tr: "tembel", ex: "Don't be lazy — do your homework." },
+      { en: "strict", tr: "katı / sıkı (öğretmen)", ex: "Our teacher is strict but fair." }
+    ],
+    speaking: {
+      warmup: [
+        "What subject are you best at?",
+        "What is your favourite place at school?",
+        "What are you doing right now in this lesson?"
+      ],
+      pair: [
+        "Describe what different people in your class are doing at this moment.",
+        "Compare a typical school day (Present Simple) with what's happening today (Present Continuous).",
+        "Tell your partner about your favourite and least favourite subjects and why."
+      ],
+      exam: [
+        "Describe your school: places, subjects, and teachers.",
+        "Talk about what you usually do at school and what you are doing this week.",
+        "Describe the kind of student you are using personality adjectives."
+      ]
+    }
+  },
+
+  // ---------- UNIT 5 ----------
+  {
+    id: "5",
+    code: "Unit 05",
+    name: "Appearances",
+    grammar: "Past Simple (to be, can, affirmative, negative, questions)",
+    color: "#0f172a",
+    vocab: [
+      { en: "friendly", tr: "arkadaş canlısı", ex: "She is very friendly." },
+      { en: "shy", tr: "utangaç", ex: "He was shy as a child." },
+      { en: "kind", tr: "nazik / iyi kalpli", ex: "My grandma is kind." },
+      { en: "funny", tr: "komik", ex: "My friend is really funny." },
+      { en: "honest", tr: "dürüst", ex: "Be honest with me." },
+      { en: "polite", tr: "kibar", ex: "He is always polite." },
+      { en: "brave", tr: "cesur", ex: "The firefighter was brave." },
+      { en: "selfish", tr: "bencil", ex: "Don't be selfish." },
+      { en: "tall", tr: "uzun boylu", ex: "My brother is tall." },
+      { en: "short", tr: "kısa boylu", ex: "She is quite short." },
+      { en: "slim", tr: "ince / zayıf", ex: "He is tall and slim." },
+      { en: "good-looking", tr: "yakışıklı / güzel", ex: "He is very good-looking." },
+      { en: "curly hair", tr: "kıvırcık saç", ex: "She has curly hair." },
+      { en: "straight hair", tr: "düz saç", ex: "He has straight black hair." },
+      { en: "blonde hair", tr: "sarı saç", ex: "She has long blonde hair." },
+      { en: "beard", tr: "sakal", ex: "My uncle has a beard." },
+      { en: "moustache", tr: "bıyık", ex: "He has a small moustache." },
+      { en: "T-shirt", tr: "tişört", ex: "I'm wearing a blue T-shirt." },
+      { en: "jeans", tr: "kot pantolon", ex: "She loves her new jeans." },
+      { en: "jacket", tr: "ceket / mont", ex: "Wear a jacket — it's cold." },
+      { en: "dress", tr: "elbise", ex: "She has a red dress." },
+      { en: "shoes", tr: "ayakkabı", ex: "These shoes are comfortable." },
+      { en: "trainers", tr: "spor ayakkabı", ex: "He bought new trainers." },
+      { en: "hat", tr: "şapka", ex: "Put on your hat." },
+      { en: "fit", tr: "uymak (beden)", ex: "These jeans fit me well." },
+      { en: "match", tr: "uyumlu olmak (renk/desen)", ex: "The bag matches the shoes." },
+      { en: "suit", tr: "yakışmak", ex: "That colour suits you." },
+      { en: "go with", tr: "ile uyumlu olmak", ex: "This shirt goes with those trousers." },
+      { en: "the same as", tr: "ile aynı", ex: "My phone is the same as yours." },
+      { en: "different from", tr: "ile farklı", ex: "Her style is different from mine." }
+    ],
+    speaking: {
+      warmup: [
+        "What were you like when you were a child?",
+        "Who is your best friend and what is he/she like?",
+        "What clothes are you wearing today?"
+      ],
+      pair: [
+        "Describe a family member's appearance and personality.",
+        "Talk about where you were and what you did last weekend (Past Simple).",
+        "Describe a celebrity without saying the name — your partner guesses."
+      ],
+      exam: [
+        "Describe a person you admire: appearance, personality, and why you like them.",
+        "Talk about what you were like five years ago and how you have changed.",
+        "Describe your favourite outfit and say when you wear it."
+      ]
+    }
+  },
+
+  // ---------- UNIT 6 ----------
+  {
+    id: "6",
+    code: "Unit 06",
+    name: "The arts around us",
+    grammar: "comparative &amp; superlative adjectives · too and (not) enough",
+    color: "#0f172a",
+    vocab: [
+      { en: "painting", tr: "resim / tablo", ex: "This painting is beautiful." },
+      { en: "sculpture", tr: "heykel", ex: "There is a sculpture in the park." },
+      { en: "photography", tr: "fotoğrafçılık", ex: "She studies photography." },
+      { en: "theatre", tr: "tiyatro", ex: "We're going to the theatre." },
+      { en: "concert", tr: "konser", ex: "The concert was amazing." },
+      { en: "exhibition", tr: "sergi", ex: "There's an art exhibition this week." },
+      { en: "artist", tr: "sanatçı", ex: "He is a famous artist." },
+      { en: "painter", tr: "ressam", ex: "Van Gogh was a painter." },
+      { en: "actor / actress", tr: "oyuncu", ex: "She is a talented actress." },
+      { en: "singer", tr: "şarkıcı", ex: "My favourite singer is on tour." },
+      { en: "director", tr: "yönetmen", ex: "The director won an award." },
+      { en: "musician", tr: "müzisyen", ex: "He is a street musician." },
+      { en: "action film", tr: "aksiyon filmi", ex: "I love action films." },
+      { en: "comedy", tr: "komedi", ex: "We watched a funny comedy." },
+      { en: "horror film", tr: "korku filmi", ex: "Horror films scare me." },
+      { en: "cartoon / animation", tr: "çizgi film", ex: "Kids enjoy cartoons." },
+      { en: "amazing", tr: "harika / şaşırtıcı", ex: "The view is amazing." },
+      { en: "boring", tr: "sıkıcı", ex: "That film was boring." },
+      { en: "interesting", tr: "ilginç", ex: "It's an interesting story." },
+      { en: "beautiful", tr: "güzel", ex: "What a beautiful song!" },
+      { en: "exciting", tr: "heyecan verici", ex: "The match was exciting." },
+      { en: "famous", tr: "ünlü", ex: "She is a famous painter." },
+      { en: "better than", tr: "-den daha iyi", ex: "This film is better than that one." },
+      { en: "worse than", tr: "-den daha kötü", ex: "Today is worse than yesterday." },
+      { en: "the best", tr: "en iyi", ex: "It's the best film of the year." },
+      { en: "the worst", tr: "en kötü", ex: "That was the worst day ever." },
+      { en: "more interesting", tr: "daha ilginç", ex: "Books are more interesting to me." },
+      { en: "the most beautiful", tr: "en güzel", ex: "It's the most beautiful city." },
+      { en: "too expensive", tr: "çok pahalı", ex: "The ticket is too expensive." },
+      { en: "not good enough", tr: "yeterince iyi değil", ex: "This photo isn't good enough." }
+    ],
+    speaking: {
+      warmup: [
+        "What kind of films do you like?",
+        "Can you play a musical instrument?",
+        "Who is your favourite artist or singer?"
+      ],
+      pair: [
+        "Compare two films or singers using comparatives and superlatives.",
+        "Recommend a film to your partner and explain why it's the best.",
+        "Agree or disagree: 'Art is more important than sport.' Give reasons."
+      ],
+      exam: [
+        "Talk about a film, concert, or exhibition you enjoyed recently.",
+        "Compare two types of art (e.g. music vs painting) and say which you prefer.",
+        "Describe the most interesting place you have ever visited."
+      ]
+    }
+  },
+
+  // ---------- UNIT 7 ----------
+  {
+    id: "7",
+    code: "Unit 07",
+    name: "Going to town",
+    grammar: "be going to · Present Continuous for future arrangements",
+    color: "#0f172a",
+    vocab: [
+      { en: "city centre", tr: "şehir merkezi", ex: "Let's meet in the city centre." },
+      { en: "shopping mall", tr: "alışveriş merkezi", ex: "The mall is very big." },
+      { en: "park", tr: "park", ex: "We walk in the park." },
+      { en: "museum", tr: "müze", ex: "The museum opens at nine." },
+      { en: "cinema", tr: "sinema", ex: "We're going to the cinema tonight." },
+      { en: "library", tr: "kütüphane", ex: "Return the books to the library." },
+      { en: "bank", tr: "banka", ex: "The bank is next to the post office." },
+      { en: "post office", tr: "postane", ex: "I'm going to the post office." },
+      { en: "hospital", tr: "hastane", ex: "The hospital is near the centre." },
+      { en: "bus station", tr: "otobüs durağı / garı", ex: "Meet me at the bus station." },
+      { en: "train station", tr: "tren istasyonu", ex: "The train station is busy." },
+      { en: "airport", tr: "havalimanı", ex: "We're driving to the airport." },
+      { en: "bus", tr: "otobüs", ex: "I take the bus to school." },
+      { en: "train", tr: "tren", ex: "The train is fast." },
+      { en: "taxi", tr: "taksi", ex: "Let's get a taxi." },
+      { en: "underground / metro", tr: "metro", ex: "The metro is cheap." },
+      { en: "bike / bicycle", tr: "bisiklet", ex: "I ride my bike to town." },
+      { en: "on foot", tr: "yürüyerek", ex: "I go to school on foot." },
+      { en: "ticket", tr: "bilet", ex: "Buy a ticket first." },
+      { en: "timetable", tr: "tarife / saat çizelgesi", ex: "Check the timetable." },
+      { en: "platform", tr: "peron", ex: "The train leaves from platform 2." },
+      { en: "single ticket", tr: "tek yön bilet", ex: "A single ticket, please." },
+      { en: "return ticket", tr: "gidiş-dönüş bilet", ex: "I'd like a return ticket." },
+      { en: "catch the bus", tr: "otobüse yetişmek", ex: "Hurry, or we'll miss the bus." },
+      { en: "miss the train", tr: "treni kaçırmak", ex: "Don't miss the train!" },
+      { en: "get on", tr: "binmek", ex: "Get on the bus quickly." },
+      { en: "get off", tr: "inmek", ex: "Get off at the next stop." },
+      { en: "go sightseeing", tr: "gezmek / yerleri görmek", ex: "We're going sightseeing tomorrow." },
+      { en: "meet up", tr: "buluşmak", ex: "Let's meet up at six." },
+      { en: "tourist", tr: "turist", ex: "The city is full of tourists." }
+    ],
+    speaking: {
+      warmup: [
+        "What are you going to do this weekend?",
+        "How do you usually travel around your city?",
+        "What's your favourite place in your town?"
+      ],
+      pair: [
+        "Make plans together for a day out — use 'going to' and arrangements.",
+        "One student is a tourist; give directions to three places in town.",
+        "Talk about your travel arrangements for the next holiday."
+      ],
+      exam: [
+        "Describe your town: places to go and how to get around.",
+        "Talk about your plans and arrangements for next weekend.",
+        "Plan a perfect day out in your city and explain your choices."
+      ]
+    }
+  },
+
+  // ---------- UNIT 8 ----------
+  {
+    id: "8",
+    code: "Unit 08",
+    name: "Smart future",
+    grammar: "will for predictions · adverbs of manner",
+    color: "#0f172a",
+    vocab: [
+      { en: "smartphone", tr: "akıllı telefon", ex: "Everyone has a smartphone." },
+      { en: "laptop", tr: "dizüstü bilgisayar", ex: "I do my homework on my laptop." },
+      { en: "tablet", tr: "tablet", ex: "She reads on her tablet." },
+      { en: "headphones", tr: "kulaklık", ex: "I listen with headphones." },
+      { en: "charger", tr: "şarj aleti", ex: "I forgot my charger." },
+      { en: "smartwatch", tr: "akıllı saat", ex: "His smartwatch counts steps." },
+      { en: "screen", tr: "ekran", ex: "The screen is cracked." },
+      { en: "keyboard", tr: "klavye", ex: "Type on the keyboard." },
+      { en: "mouse", tr: "fare", ex: "The mouse isn't working." },
+      { en: "printer", tr: "yazıcı", ex: "Print it on the printer." },
+      { en: "download", tr: "indirmek", ex: "I'll download the app." },
+      { en: "upload", tr: "yüklemek", ex: "Upload your photos here." },
+      { en: "charge", tr: "şarj etmek", ex: "Charge your phone tonight." },
+      { en: "robot", tr: "robot", ex: "Robots will help us at home." },
+      { en: "invention", tr: "icat", ex: "It's an amazing invention." },
+      { en: "experiment", tr: "deney", ex: "We did an experiment in class." },
+      { en: "scientist", tr: "bilim insanı", ex: "Scientists study the planet." },
+      { en: "energy", tr: "enerji", ex: "Solar energy is clean." },
+      { en: "space", tr: "uzay", ex: "People will travel in space." },
+      { en: "happy", tr: "mutlu", ex: "She felt very happy." },
+      { en: "excited", tr: "heyecanlı", ex: "I'm excited about the trip." },
+      { en: "nervous", tr: "gergin / endişeli", ex: "He's nervous before exams." },
+      { en: "scared", tr: "korkmuş", ex: "Don't be scared." },
+      { en: "bored", tr: "sıkılmış", ex: "I'm bored at home." },
+      { en: "surprised", tr: "şaşırmış", ex: "She was surprised by the gift." },
+      { en: "carefully", tr: "dikkatlice", ex: "Drive carefully." },
+      { en: "quickly", tr: "hızlıca", ex: "He runs quickly." },
+      { en: "slowly", tr: "yavaşça", ex: "Please speak slowly." },
+      { en: "well", tr: "iyi (bir şekilde)", ex: "She sings well." },
+      { en: "badly", tr: "kötü (bir şekilde)", ex: "He plays badly today." }
+    ],
+    speaking: {
+      warmup: [
+        "What's your favourite gadget and why?",
+        "How do you think people will travel in the future?",
+        "Do you think robots will do our jobs one day?"
+      ],
+      pair: [
+        "Make three predictions about life in 2050 using 'will'.",
+        "Talk about how technology helps you study every day.",
+        "Discuss: 'Will smartphones make people lonely?' Give your opinions."
+      ],
+      exam: [
+        "Make predictions about technology and life in the future.",
+        "Talk about the gadgets you use and how they help you.",
+        "Describe how you feel about the future and explain why."
+      ]
+    }
+  },
+
+  // ---------- UNIT 9 ----------
+  {
+    id: "9",
+    code: "Unit 09",
+    name: "Fit and healthy",
+    grammar: "must / mustn't · have to / don't have to · should / shouldn't",
+    color: "#0f172a",
+    vocab: [
+      { en: "football", tr: "futbol", ex: "We play football on Fridays." },
+      { en: "basketball", tr: "basketbol", ex: "He's good at basketball." },
+      { en: "volleyball", tr: "voleybol", ex: "She plays volleyball." },
+      { en: "swimming", tr: "yüzme", ex: "Swimming is great exercise." },
+      { en: "running", tr: "koşu", ex: "I go running in the morning." },
+      { en: "cycling", tr: "bisiklet sürme", ex: "Cycling keeps you fit." },
+      { en: "tennis", tr: "tenis", ex: "They play tennis on weekends." },
+      { en: "gym", tr: "spor salonu", ex: "I go to the gym twice a week." },
+      { en: "ball", tr: "top", ex: "Pass the ball!" },
+      { en: "racket", tr: "raket", ex: "I bought a new racket." },
+      { en: "helmet", tr: "kask", ex: "Wear a helmet when cycling." },
+      { en: "trainers", tr: "spor ayakkabı", ex: "You need good trainers for running." },
+      { en: "head", tr: "kafa / baş", ex: "My head hurts." },
+      { en: "arm", tr: "kol", ex: "He broke his arm." },
+      { en: "leg", tr: "bacak", ex: "Stretch your legs." },
+      { en: "hand", tr: "el", ex: "Wash your hands." },
+      { en: "foot / feet", tr: "ayak / ayaklar", ex: "My feet are cold." },
+      { en: "stomach", tr: "mide / karın", ex: "I have a stomach ache." },
+      { en: "back", tr: "sırt", ex: "My back hurts after sitting." },
+      { en: "heart", tr: "kalp", ex: "Exercise is good for your heart." },
+      { en: "healthy", tr: "sağlıklı", ex: "Eat a healthy diet." },
+      { en: "unhealthy", tr: "sağlıksız", ex: "Fast food is unhealthy." },
+      { en: "fit", tr: "formda / sağlıklı", ex: "Sport keeps me fit." },
+      { en: "tired", tr: "yorgun", ex: "I'm tired after training." },
+      { en: "ill / sick", tr: "hasta", ex: "She is ill today." },
+      { en: "headache", tr: "baş ağrısı", ex: "I have a headache." },
+      { en: "get fit", tr: "forma girmek", ex: "I want to get fit this year." },
+      { en: "do exercise", tr: "egzersiz yapmak", ex: "Do exercise every day." },
+      { en: "stay healthy", tr: "sağlıklı kalmak", ex: "Sleep well to stay healthy." },
+      { en: "have a balanced diet", tr: "dengeli beslenmek", ex: "Have a balanced diet." }
+    ],
+    speaking: {
+      warmup: [
+        "What sports do you do?",
+        "What do you do to stay healthy?",
+        "How many hours do you sleep on school nights?"
+      ],
+      pair: [
+        "Give your partner three rules for a healthy life using should / shouldn't.",
+        "Talk about what you must and mustn't do at school.",
+        "Discuss: 'Everyone should do sport at school.' Do you agree?"
+      ],
+      exam: [
+        "Talk about your favourite sport and why you like it.",
+        "Give advice on how to stay fit and healthy using should/must/have to.",
+        "Describe your weekly exercise routine and your eating habits."
+      ]
+    }
+  },
+
+  // ---------- UNIT 10 ----------
+  {
+    id: "10",
+    code: "Unit 10",
+    name: "Our planet, our hands",
+    grammar: "Present Perfect (ever, never, already, just, yet)",
+    color: "#0f172a",
+    vocab: [
+      { en: "mountain", tr: "dağ", ex: "We climbed a high mountain." },
+      { en: "river", tr: "nehir", ex: "The river is very long." },
+      { en: "lake", tr: "göl", ex: "We swam in the lake." },
+      { en: "sea", tr: "deniz", ex: "The sea is warm in summer." },
+      { en: "ocean", tr: "okyanus", ex: "The ocean is deep." },
+      { en: "forest", tr: "orman", ex: "There are many trees in the forest." },
+      { en: "desert", tr: "çöl", ex: "The desert is very hot." },
+      { en: "island", tr: "ada", ex: "They live on a small island." },
+      { en: "beach", tr: "plaj / kumsal", ex: "We relaxed on the beach." },
+      { en: "waterfall", tr: "şelale", ex: "The waterfall is beautiful." },
+      { en: "lion", tr: "aslan", ex: "The lion is the king of animals." },
+      { en: "elephant", tr: "fil", ex: "Elephants are very big." },
+      { en: "tiger", tr: "kaplan", ex: "Tigers live in the forest." },
+      { en: "dolphin", tr: "yunus", ex: "Dolphins are clever animals." },
+      { en: "eagle", tr: "kartal", ex: "The eagle flies high." },
+      { en: "snake", tr: "yılan", ex: "Some snakes are dangerous." },
+      { en: "wing", tr: "kanat", ex: "Birds have wings." },
+      { en: "tail", tr: "kuyruk", ex: "The cat has a long tail." },
+      { en: "paw", tr: "pati", ex: "The dog hurt its paw." },
+      { en: "fur", tr: "kürk / tüy", ex: "The cat has soft fur." },
+      { en: "recycle", tr: "geri dönüştürmek", ex: "We recycle paper and plastic." },
+      { en: "pollution", tr: "kirlilik", ex: "Pollution harms the planet." },
+      { en: "climate change", tr: "iklim değişikliği", ex: "Climate change is a big problem." },
+      { en: "plastic", tr: "plastik", ex: "Don't use too much plastic." },
+      { en: "save energy", tr: "enerji tasarrufu yapmak", ex: "Turn off lights to save energy." },
+      { en: "protect", tr: "korumak", ex: "We must protect animals." },
+      { en: "environment", tr: "çevre", ex: "Keep the environment clean." },
+      { en: "have you ever...?", tr: "hiç ...dın mı?", ex: "Have you ever seen a dolphin?" },
+      { en: "never", tr: "asla / hiç", ex: "I have never been abroad." },
+      { en: "already / just / yet", tr: "çoktan / az önce / henüz", ex: "I've already finished. / I've just arrived. / Not yet." }
+    ],
+    speaking: {
+      warmup: [
+        "Have you ever climbed a mountain or visited the sea?",
+        "What's your favourite animal and why?",
+        "What do you do to protect the environment?"
+      ],
+      pair: [
+        "Ask each other 'Have you ever...?' questions about places and experiences.",
+        "Make a list of three things you have already done to help the planet.",
+        "Discuss: 'What can young people do about climate change?'"
+      ],
+      exam: [
+        "Talk about places in nature you have visited and what you did there.",
+        "Describe an animal and explain why we should protect it.",
+        "Talk about environmental problems and what you have done to help."
+      ]
+    }
+  }
+  ]
+};
+
+</script>
+<script>
+// ============================================================
+//  App logic — render + interactivity
+//  No external storage; progress kept in memory for the session
+// ============================================================
+(function(){
+  "use strict";
+
+  const content   = document.getElementById('content');
+  const navScroll = document.getElementById('navScroller');
+  const search    = document.getElementById('searchInput');
+  const noResults = document.getElementById('noResults');
+  const nrTerm    = document.getElementById('nrTerm');
+
+  // in-memory progress: { "unitId:index": true } for known words
+  const known = Object.create(null);
+
+  // ---------- totals ----------
+  let totalWords = 0, totalQs = 0;
+  COURSE.units.forEach(u=>{
+    totalWords += u.vocab.length;
+    totalQs += (u.speaking.warmup.length + u.speaking.pair.length + u.speaking.exam.length);
+  });
+  document.getElementById('totWords').textContent = totalWords;
+  document.getElementById('totQs').textContent = totalQs;
+
+  // ---------- helpers ----------
+  function el(tag, cls, html){
+    const e = document.createElement(tag);
+    if(cls) e.className = cls;
+    if(html!=null) e.innerHTML = html;
+    return e;
+  }
+  function ringSvg(){
+    return `<svg width="54" height="54" viewBox="0 0 54 54">
+      <circle cx="27" cy="27" r="22" fill="none" stroke="#e6ddca" stroke-width="5"/>
+      <circle class="ring-fg" cx="27" cy="27" r="22" fill="none" stroke="#c8552b"
+        stroke-width="5" stroke-linecap="round"
+        stroke-dasharray="138.2" stroke-dashoffset="138.2"/>
+    </svg>`;
+  }
+  const tierMeta = {
+    warmup:{label:'Warm-up', cls:'warm', note:'Quick starters'},
+    pair:{label:'Pair work', cls:'pair', note:'Speak with a partner'},
+    exam:{label:'Exam-style', cls:'exam', note:'Matches the real test'}
+  };
+
+  // ---------- build nav ----------
+  COURSE.units.forEach(u=>{
+    const b = el('button','navbtn', (u.id==='0'?'Welcome':'U'+u.id));
+    b.dataset.target = 'unit-'+u.id;
+    b.addEventListener('click',()=>{
+      document.getElementById('unit-'+u.id)
+        .scrollIntoView({behavior:'smooth',block:'start'});
+    });
+    navScroll.appendChild(b);
+  });
+
+  // ---------- render units ----------
+  COURSE.units.forEach(u=>{
+    const section = el('section','unit');
+    section.id = 'unit-'+u.id;
+    section.dataset.unit = u.id;
+
+    // head
+    const head = el('div','unit-head');
+    const num  = el('div','unit-num'+(u.id==='0'?' welcome':''), u.id==='0'?'★':u.id);
+    const ht   = el('div','ht');
+    ht.appendChild(el('div','unit-code', u.code));
+    ht.appendChild(el('h2', null, u.name));
+    const gram = el('div','unit-grammar');
+    gram.appendChild(el('span','tag','Grammar'));
+    gram.appendChild(el('span',null,u.grammar));
+    ht.appendChild(gram);
+
+    const ring = el('div','ring');
+    ring.innerHTML = ringSvg() + '<div class="pct">0%</div>';
+
+    head.appendChild(num);
+    head.appendChild(ht);
+    head.appendChild(ring);
+    section.appendChild(head);
+
+    // panels
+    const panels = el('div','panels');
+
+    // --- vocab panel ---
+    const vPanel = el('div','panel');
+    const vHead = el('div','panel-h');
+    vHead.innerHTML =
+      `<div class="pt vocab"><span class="dot"></span>Vocabulary</div>
+       <span class="count">${u.vocab.length} words</span>`;
+    vPanel.appendChild(vHead);
+
+    const vlist = el('div','vlist');
+    u.vocab.forEach((w,i)=>{
+      const row = el('div','vrow');
+      row.dataset.en = (w.en||'').toLowerCase();
+      row.dataset.tr = (w.tr||'').toLowerCase();
+      row.dataset.key = u.id+':'+i;
+      row.innerHTML =
+        `<span class="ven">${w.en}</span>
+         <span class="vtr">${w.tr}</span>
+         <span class="vex">${w.ex||''}</span>
+         <span class="vmark">✓</span>`;
+
+      // tap word body -> reveal
+      row.addEventListener('click',(e)=>{
+        if(e.target.classList.contains('vmark')) return;
+        row.classList.add('reveal');
+      });
+      // tap the check box -> toggle known (and reveal)
+      row.querySelector('.vmark').addEventListener('click',(e)=>{
+        e.stopPropagation();
+        row.classList.add('reveal');
+        const k = row.dataset.key;
+        if(known[k]){ delete known[k]; row.classList.remove('known'); }
+        else { known[k]=true; row.classList.add('known'); }
+        updateRing(u.id);
+      });
+      vlist.appendChild(row);
+    });
+    vPanel.appendChild(vlist);
+
+    // --- speaking panel ---
+    const sPanel = el('div','panel');
+    const sHead = el('div','panel-h');
+    const sqCount = u.speaking.warmup.length+u.speaking.pair.length+u.speaking.exam.length;
+    sHead.innerHTML =
+      `<div class="pt"><span class="dot"></span>Speaking</div>
+       <span class="count">${sqCount} prompts</span>`;
+    sPanel.appendChild(sHead);
+
+    const sBody = el('div','speak-body');
+    ['warmup','pair','exam'].forEach(t=>{
+      const meta = tierMeta[t];
+      const tier = el('div','stier');
+      tier.innerHTML = `<div class="stier-h"><span class="lvl ${meta.cls}">${meta.label}</span>${meta.note}</div>`;
+      const ul = el('ul','qlist');
+      u.speaking[t].forEach(q=> ul.appendChild(el('li',null,q)));
+      tier.appendChild(ul);
+      sBody.appendChild(tier);
+    });
+    sPanel.appendChild(sBody);
+
+    panels.appendChild(vPanel);
+    panels.appendChild(sPanel);
+    section.appendChild(panels);
+    content.appendChild(section);
+  });
+
+  // ---------- progress ring ----------
+  function updateRing(unitId){
+    const section = document.getElementById('unit-'+unitId);
+    const rows = section.querySelectorAll('.vrow');
+    let total = rows.length, k = 0;
+    rows.forEach(r=>{ if(known[r.dataset.key]) k++; });
+    const pct = total? Math.round(k/total*100) : 0;
+    const fg = section.querySelector('.ring-fg');
+    const lbl = section.querySelector('.pct');
+    const circ = 138.2;
+    fg.style.strokeDashoffset = circ - (circ*pct/100);
+    lbl.textContent = pct+'%';
+    if(pct===100){ fg.style.stroke = '#2f7d52'; lbl.style.color = '#2f7d52'; }
+    else { fg.style.stroke = '#c8552b'; lbl.style.color = '#1c2b2d'; }
+  }
+
+  // ---------- sticky nav active state ----------
+  const navBtns = [...document.querySelectorAll('.navbtn')];
+  const sections = [...document.querySelectorAll('.unit')];
+  const obs = new IntersectionObserver((entries)=>{
+    entries.forEach(en=>{
+      if(en.isIntersecting){
+        const id = en.target.dataset.unit;
+        navBtns.forEach(b=>b.classList.toggle('active', b.dataset.target==='unit-'+id));
+      }
+    });
+  },{rootMargin:'-45% 0px -50% 0px'});
+  sections.forEach(s=>obs.observe(s));
+
+  // ---------- search ----------
+  let searchTimer;
+  search.addEventListener('input',()=>{
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(runSearch, 120);
+  });
+  function runSearch(){
+    const term = search.value.trim().toLowerCase();
+    let anyVisible = false;
+    document.querySelectorAll('.unit').forEach(section=>{
+      let unitHasMatch = false;
+      section.querySelectorAll('.vrow').forEach(row=>{
+        if(!term){ row.classList.remove('hide'); unitHasMatch=true; return; }
+        const hit = row.dataset.en.includes(term) || row.dataset.tr.includes(term);
+        row.classList.toggle('hide', !hit);
+        if(hit){ unitHasMatch=true; row.classList.add('reveal'); }
+      });
+      // when searching, hide speaking + non-matching units to focus on words
+      const speakPanel = section.querySelectorAll('.panel')[1];
+      if(term){
+        section.classList.toggle('hide', !unitHasMatch);
+        if(speakPanel) speakPanel.classList.add('hide');
+      } else {
+        section.classList.remove('hide');
+        if(speakPanel) speakPanel.classList.remove('hide');
+      }
+      if(unitHasMatch) anyVisible = true;
+    });
+    if(term && !anyVisible){ noResults.classList.remove('hide'); nrTerm.textContent = search.value; }
+    else noResults.classList.add('hide');
+  }
+
+  // ---------- test mode (hide all answers) ----------
+  const testBtn = document.getElementById('testMode');
+  testBtn.addEventListener('click',()=>{
+    const on = testBtn.classList.toggle('on');
+    document.querySelectorAll('.vrow').forEach(r=> r.classList.remove('reveal'));
+    testBtn.textContent = on ? '● Test mode (on)' : '◐ Test mode';
+    revealBtn.classList.remove('on');
+    revealBtn.textContent = 'Reveal all';
+  });
+
+  // ---------- reveal all ----------
+  const revealBtn = document.getElementById('revealAll');
+  revealBtn.addEventListener('click',()=>{
+    const on = revealBtn.classList.toggle('on');
+    document.querySelectorAll('.vrow').forEach(r=> r.classList.toggle('reveal', on));
+    revealBtn.textContent = on ? 'Hide all' : 'Reveal all';
+    testBtn.classList.remove('on');
+    testBtn.textContent = '◐ Test mode';
+  });
+
+  // ---------- print ----------
+  document.getElementById('printBtn').addEventListener('click',()=> window.print());
+
+  // ---------- reset ----------
+  document.getElementById('resetProgress').addEventListener('click',()=>{
+    for(const k in known) delete known[k];
+    document.querySelectorAll('.vrow').forEach(r=> r.classList.remove('known','reveal'));
+    COURSE.units.forEach(u=> updateRing(u.id));
+    search.value=''; runSearch();
+    testBtn.classList.remove('on'); testBtn.textContent='◐ Test mode';
+    revealBtn.classList.remove('on'); revealBtn.textContent='Reveal all';
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+
+  // init rings
+  COURSE.units.forEach(u=> updateRing(u.id));
+})();
+
+</script>
+</body>
+</html>
